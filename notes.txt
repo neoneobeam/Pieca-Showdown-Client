@@ -1,0 +1,40 @@
+~~~~
+list of all things to do (feel free to add to this):
+~~~~
+
+* have not messed around with sprites and in game matches, but this just gets the custom mon to appear on the client side's pokemon list (tldr for this, it looks like the main showdown server connects to a different one to load the sprites (we COULD download all of them from the spreadsheet, I am curious if there is a method for connecting to that directly in case of file size/streamlining edits a bit more, I think to add this it would be in the js files that load the html? but haven't investigated too much)
+* add other pokemon in
+* add mechanics in
+ ^ like what was mentioned with the sprites, there might be a way to pull from the spreadsheet to make doing that easier
+
+~~~~
+how to host the server locally *prereq is that you have node/npx installed, easier to do on linux, but if on other os I think you can use on a docker (main showdown github has more detailed instructions):
+~~~~
+
+clone pokemon showdown server and client (put them in two separate folders)
+
+in server (in the data folder as of writing this):
+* add pokemon to formats-data.ts
+* add pokemon to pokedex 
+* add pokemon to learnsets
+^ main thing to note is to specify them as the same gen in the dex as the one that they are also able to learn the moves in
+
+in client:
+* copy the entire pokemon showdown server folder to the cache one
+* in the build tools folder, run the build-indexes file (that has small edits made to look at the new directory and not the online one, a copy of the edited version is in this refrences folder)
+* this should populate the data directory in the client with the new info
+
+to launch:
+(after downloading node), in the /pokemon-showdown folder (server), in a terminal type 'node pokemon-showdown'
+
+with this terminal open (and when the server is up) you can have a client join the server by opening up a terminal in the lient directory '/pokemon-showdown-client' and running 'npx http-server'. In a browser, then go to 'http://localhost:____/play.pokemonshowdown.com/testclient-old.html?~~localhost:XXXX' to play as a client 'localhost:____' also lets u play, but its from the server pov so new mons actually don't show up (server launcher calls to the like actual main showdown server, but when we run our own, and a client gets the data from the server, it overwrites it and adds custom mons). 
+
+Where '____' = is the port specified in the server terminal (should say something like "Test your server at http://localhost:____")
+
+and 'XXXX' = is the port specified in the client terminal (should say something like "http:10.0.0.??:XXXX" (the '??' represent random numbers that your computer picks based on availible slots on the router, it doesn't matter for connecting)
+
+Only other notes are that there are prompts for copying and pasting stuff that has to do with the fact that we don't have a sign in function rn (haven't looked into too much), and that you have to add the mons in the teambuilder/select a format that they are viable in. Otherwise, opening up the same link in a new tab can allow for a new user to be simulated on the same machine and you can battle with them. VERY IMPORTANT NOTE THAT I LEARNED THE HARD WAY: be careful about updating/cloning from the main github for showdown rn as they are experimenting with adding a new client website that might break some things
+
+^ * this might not be the best way to set up the server, but its the one that I've found. If there are better ones, we can ofc change it. fwiw I think we should be able to call "git fetch upstream" if we want to pull from the main showdown repo (if I set that up correctly, might not have, have not tested this lol)
+
+
