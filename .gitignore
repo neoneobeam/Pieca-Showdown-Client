@@ -13,9 +13,9 @@ npm-debug.log
 /play.pokemonshowdown.com/audio/
 
 # built from other sources
-/play.pokemonshowdown.com/caches/
+#/play.pokemonshowdown.com/caches/
 /play.pokemonshowdown.com/crossprotocol.html
-/play.pokemonshowdown.com/data/
+#/play.pokemonshowdown.com/data/
 /play.pokemonshowdown.com/js/
 /play.pokemonshowdown.com/ads.txt
 
