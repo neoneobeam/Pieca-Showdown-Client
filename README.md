@@ -1,18 +1,11 @@
-Pokémon Showdown Client (this is mostly from the og read me, to pair up with the server repo. but below are some important notes for adding mons/ getting this running)
+Pieca Showdown Client (this is mostly from the og read me, to pair up with the server repo. but below are some important notes for adding mons/ getting this running)
 
 
-~~~~
-list of all things to do (feel free to add to this):
-~~~~
 
-* have not messed around with sprites and in game matches, but this just gets the custom mon to appear on the client side's pokemon list (tldr for this, it looks like the main showdown server connects to a different one to load the sprites (we COULD download all of them from the spreadsheet, I am curious if there is a method for connecting to that directly in case of file size/streamlining edits a bit more, I think to add this it would be in the js files that load the html? but haven't investigated too much)
-* add other pokemon in
-* add mechanics in
- ^ like what was mentioned with the sprites, there might be a way to pull from the spreadsheet to make doing that easier
 
-~~~~
+
 how to host the server locally *prereq is that you have node/npx installed, easier to do on linux, but if on other os I think you can use on a docker (main showdown github has more detailed instructions):
-~~~~
+------------------------------------------------------------------------
 
 clone pokemon showdown server and client (put them in two separate folders)
 
@@ -40,6 +33,11 @@ Only other notes are that there are prompts for copying and pasting stuff that h
 
 ^ * this might not be the best way to set up the server, but its the one that I've found. If there are better ones, we can ofc change it. fwiw I think we should be able to call "git fetch upstream" if we want to pull from the main showdown repo (if I set that up correctly, might not have, have not tested this lol)
 
+MAIN THING TO NOTE WHEN UPDATING: since the showdown server/git are currently doing a rewrite, we aren't using all of the files (as some are also custom and they have a tendancy to break). So some files,
+* pokemon-showdown-client/build-indexes
+* pokemon-showdown-client/play.pokemonshowdown.com/testclient-old.html 
+* pokemon-showdown/config/config.js
+have some parts edited to account for this 
 
 
 

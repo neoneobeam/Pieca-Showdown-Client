@@ -12,11 +12,14 @@
 		<link rel="stylesheet" href="style/font-awesome.css" />
 		<meta name="robots" content="noindex" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-		<script src="https://play.pokemonshowdown.com/config/config.js"></script>
+		<!--<script src="https://play.pokemonshowdown.com/config/config.js"></script>-->
+		<script src="/play.pokemonshowdown.com/config/config.js"></script>
 		<script>
 			function loadRemoteData(src) {
 				var scriptEl = document.createElement('script');
-				scriptEl.src = src.replace(/.*\/(data|js)\//g, 'https://play.pokemonshowdown.com/$1/');
+				//scriptEl.src = src.replace(/.*\/(data|js)\//g, 'https://play.pokemonshowdown.com/$1/');
+				// edited by neo (this part above meant that the client was grabbing the new files, when most of our client is based on the old ones)
+				scriptEl.src = src.replace(/.*\/(data|js)\//g, '/play.pokemonshowdown.com/$1/');
 				document.head.appendChild(scriptEl);
 			}
 			Config.testclient = true;
@@ -88,7 +91,9 @@
 		</script>
 
 		<!-- fallback for if you've never done a full build -->
-		<script src="js/server/chat-formatter.js" onerror="loadRemoteData(this.src)"></script>
+		<!-- old line, I think the remote version of this got removed -->
+		<!--  <script src="js/server/chat-formatter.js" onerror="loadRemoteData(this.src)"></script> -->
+		<script src="js/oldclient/chat-formatter.js" onerror="loadRemoteData(this.src)"></script>
 		<script src="js/battledata.js" onerror="loadRemoteData(this.src)"></script>
 		<script src="data/text.js" onerror="loadRemoteData(this.src)"></script>
 		<script src="data/pokedex-mini.js" onerror="loadRemoteData(this.src)"></script>
@@ -100,6 +105,10 @@
 
 		<script>
 			document.getElementById('loading-message').innerHTML += ' DONE<br />Loading client...';
+			// this part was added by neo, kept getting an error saying this wasn't defined
+			var BattleTextNotAFD;
+			var eHTML;
+			var TL;
 		</script>
 
 		<script src="js/oldclient/client.js"></script>

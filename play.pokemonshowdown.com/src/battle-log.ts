@@ -24,6 +24,7 @@ import { Config } from './client-main';
 // Caja
 declare const html4: any;
 declare const html: any;
+declare const eHTML: any;
 
 // defined in battle-log-misc
 declare function MD5(input: string): string;

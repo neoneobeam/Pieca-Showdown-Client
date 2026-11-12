@@ -59,7 +59,7 @@ export class PSConnection {
 		}
 
 		try {
-			const worker = new Worker('/js/client-connection-worker.js');
+			const worker = new Worker('client-connection-worker.js');
 			this.worker = worker;
 
 			worker.postMessage({ type: 'connect', server: PS.server });
