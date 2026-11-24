@@ -13,8 +13,26 @@
 		<meta name="robots" content="noindex" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<!--<script src="https://play.pokemonshowdown.com/config/config.js"></script>-->
+		
+		<script>
+		// this script was added by neo, for the more perma, not cloudflare server
+		// this can prob be removed (helps set the config with how the tunnels communicate)
+				var Config = Config || {};
+				Config.routes = {
+					root: 'pokemonshowdown.com',
+					client: 'play.pokemonshowdown.com',
+					dex: 'dex.pokemonshowdown.com',
+					replays: 'replay.pokemonshowdown.com',
+					users: 'pokemonshowdown.com/users',
+					teams: 'teams.pokemonshowdown.com',
+				};
+				Config.customcolors = {
+					'zarel': 'aeo'
+				};
+		</script>
 		<script src="/play.pokemonshowdown.com/config/config.js"></script>
 		<script>
+
 			function loadRemoteData(src) {
 				var scriptEl = document.createElement('script');
 				//scriptEl.src = src.replace(/.*\/(data|js)\//g, 'https://play.pokemonshowdown.com/$1/');

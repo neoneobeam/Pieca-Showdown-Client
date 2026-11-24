@@ -20,7 +20,82 @@ in client:
 * in the build tools folder, run the build-indexes file (that has small edits made to look at the new directory and not the online one, a copy of the edited version is in this refrences folder)
 * this should populate the data directory in the client with the new info
 
-to launch:
+There are two methods to launch the server:
+* one that is designed around (cloudflare) tunnels (this requires a computer to host the server, and pass it to the tunnel to keep the host's safe from bots n such)
+* the other method is more traditional, as in you are planning to host the server on a more dedicated device
+
+remember to not give your ip address to strangers/open terminals in a vc/internet safety yay/etc. etc.
+-----
+
+also read over instructions for each method in full if you are planning to run the server
+-----
+
+(quick terminal shortcuts in case u didn't kno):
+crtl + C cancels the program
+ctrl + shift + C copies highlighted text
+ctrl + shift + V pastes clipboard text
+
+* to launch (method 1, use if you just want to tunnel):
+
+the extra prereq for this one is getting a tunnel program set up (follow the steps from this link for the cloudflare one specifically):
+
+https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/
+
+this one is just the direct download one as well
+
+https://developers.cloudflare.com/tunnel/downloads/
+
+pokemon-showdown/server/static has an index.html file, this one NORMALLY gets overwritten with a default client. When using cloudflare tunnels, we can only pass one link so we can't do method 2 below (which is the main way for more dedicated servers). So the idea is to overwrite the default client with the custom one.
+
+MAKE SURE THE index.html in pokemon-showdown/server/static has the contents of index(testNew).html before doing this step. Also you copy the contents (FROM THE CLIENT REPO) of pokemonshowdown-client/play.pokemonshowdown.com/ to the (SERVER) pokemon-showdown/server/static (needed for overwriting the default client).
+
+(after downloading node), in the /pokemon-showdown folder (server), in a terminal get your local ip address (this is one that cannot be reached by users unless they are on the same router as you). The command to get this varies, but for linux (and I think docker as well since iirc it uses linux) try 'ip addr show' and get the 'inet 10.0.0.XX' (just keep track of this for now). Then type 'node pokemon-showdown' in a terminal to run the server 
+
+you also might need to re-run './build' in the directory where you would run 'node pokemon-showdown', after editing the config.js
+
+with the server running, in a new terminal (doesn't matter location), set up the cloudflare tunnel by running this command:
+
+~ 'cloudflared tunnel --url http://10.0.0.XX:ZZZZ'
+
+you might need to scroll up a bit in the terminal/wait, but you should see a link that ends with '.trycloudflare.com'. This is the one for your server!
+
+
+We are almost done, make note of the link of where the tunnel is being ran at. Then change the 'host' variable in pokemon-showdown/server/static/config/config.js to have the ip/port:
+
+Config.defaultserver = {
+	id: 'showdown',
+	//host: 'sim3.psim.us',
+	// edited by neo, makes the server's client be the custom one
+	host: '[put_link_name_here]',
+	port: 443,
+	httpport: 8000,
+	altport: 80,
+	registered: true
+};
+
+Config.server = {
+	id: 'showdown',
+	//host: 'sim3.psim.us',
+	host: '[put_link_name_here]',
+	port: 443,
+	httpport: 8000,
+	altport: 80,
+	registered: true
+}
+
+^ change both the defaultserver and regular one (or not, might just need one but I was testing with two so yeah). for an example, the '[put_link_name_here]' part (including the '[' and ']' should be replaced with the 'name_of_the_tunnel.trycloudflare.com' as in if the link is http:name_of_the_tunnel.trycloudflare.com, then you DON'T need the http. 
+
+
+
+main thing to note with this method is that you have to change the files a bit and some of these vars get assigned on boot so pay attention to what they are (the port can be customized as long as another program isn't using it, and the ip-locally-doesn't often change, but can if another device is using it). ALSO would reccomend clearing cookies as sometimes the older files presist (this happened ALOT in testing so lo-key do this first when debugging)
+
+
+
+
+
+* to launch (method 2, use for full (more dedicated) server):
+MAKE SURE THE index.html in pokemon-showdown/server/static has the contents of index(og).html before doing this step
+
 (after downloading node), in the /pokemon-showdown folder (server), in a terminal type 'node pokemon-showdown'
 
 with this terminal open (and when the server is up) you can have a client join the server by opening up a terminal in the lient directory '/pokemon-showdown-client' and running 'npx http-server'. In a browser, then go to 'http://localhost:____/play.pokemonshowdown.com/testclient-old.html?~~localhost:XXXX' to play as a client 'localhost:____' also lets u play, but its from the server pov so new mons actually don't show up (server launcher calls to the like actual main showdown server, but when we run our own, and a client gets the data from the server, it overwrites it and adds custom mons). 
@@ -36,8 +111,14 @@ Only other notes are that there are prompts for copying and pasting stuff that h
 MAIN THING TO NOTE WHEN UPDATING: since the showdown server/git are currently doing a rewrite, we aren't using all of the files (as some are also custom and they have a tendancy to break). So some files,
 * pokemon-showdown-client/build-indexes
 * pokemon-showdown-client/play.pokemonshowdown.com/testclient-old.html 
+* pokemon-showdown-client/play.pokemonshowdown.com/js/oldclient/client.js
 * pokemon-showdown/config/config.js
-have some parts edited to account for this 
+^ this is the main one to change, make the host match the local ip and port the
+server ends up being hosted on (it will be a 10.0.0.XX:[port]), as in it will vary from the default one I put in for my device/testing)
+* pokemon-showown/config/config-example.js
+* pokemon-showdown/server/static/index.html
+* pokemon-showdown/server/ip-tools.ts
+have some parts edited to account for this (ctrl + f "neo" to find edits)
 
 
 
